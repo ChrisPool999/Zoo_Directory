@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Zoo Directory</string>
+    <string name="info">Information</string>
+    <string name="uninstall">Uninstall</string>
+    <string name="animal_name_default">Animal Name></string>
+    <string name="animal_image_default">Animal Photo</string>
+    <string name="tiger">Tiger</string>
+    <string name="lion">Lion</string>
+    <string name="elephant">Elephant</string>
+    <string name="monkey">Monkey</string>
+    <string name="crocodile">Crocodile</string>
+    <string name="tiger_desc">A powerful big cat with bold stripes, known for its strength and stealth in the wild.</string>
+    <string name="lion_desc">The majestic "king of the jungle," living in prides and known for its loud roar.</string>
+    <string name="elephant_desc">The largest land animal, famous for its trunk, tusks, and strong family bonds.</string>
+    <string name="monkey_desc">A smart, playful primate that lives in groups and swings easily through trees.</string>
+    <string name="crocodile_desc">A fierce reptile with strong jaws, often seen resting near rivers and swamps.</string>
+</resources>
