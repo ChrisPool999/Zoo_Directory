@@ -1,6 +1,7 @@
 package edu.csueb.android.zoodirectory;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,14 @@ public class AnimalAdaptor extends RecyclerView.Adapter<AnimalAdaptor.AnimalView
         Animal animal = animalList.get(position);
         holder.nameTextView.setText(animal.getName());
         holder.imageView.setImageResource(animal.getImageResId());
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, AnimalDetailActivity.class);
+            intent.putExtra("animal_name", animal.getName());
+            intent.putExtra("animal_description", animal.getDescription());
+            intent.putExtra("animal_image", animal.getImageResId());
+            context.startActivity(intent);
+        });
     }
 
     @Override
