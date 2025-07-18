@@ -1,10 +1,14 @@
 package edu.csueb.android.zoodirectory;
 
+import android.net.Uri;
 import android.view.Menu;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import android.content.Intent;
+import android.view.MenuItem;
+import android.app.AlertDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +24,29 @@ public class MainActivity extends AppCompatActivity {
         return true;
      }
 
-     @Override
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menu_info) {
+            Intent infoIntent = new Intent(this, ZooInformationActivity.class);
+            startActivity(infoIntent);
+        } else if (item.getItemId() == R.id.menu_uninstall) {
+            new AlertDialog.Builder(this)
+                    .setTitle("Uninstall App")
+                    .setMessage("Are you sure you want to uninstall this app?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        Intent intent = new Intent(Intent.ACTION_DELETE);
+                        intent.setData(Uri.parse("package:" + getPackageName()));
+                        startActivity(intent);
+                    })
+                    .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                    .show();
+        }
+
+        return true;
+    }
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

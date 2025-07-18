@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.appcompat.app.AlertDialog;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,8 +27,16 @@ public class AnimalAdaptor extends RecyclerView.Adapter<AnimalAdaptor.AnimalView
     @Override
     public AnimalViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context)
-                        .inflate(R.layout.animal_list_item, parent, false);
+                .inflate(R.layout.animal_list_item, parent, false);
         return new AnimalViewHolder(view);
+    }
+
+    private void openAnimalDetails(Animal animal) {
+        Intent intent = new Intent(context, AnimalDetailActivity.class);
+        intent.putExtra("animal_name", animal.getName());
+        intent.putExtra("animal_description", animal.getDescription());
+        intent.putExtra("animal_image", animal.getImageResId());
+        context.startActivity(intent);
     }
 
     public void onBindViewHolder(AnimalViewHolder holder, int position) {
@@ -35,12 +44,20 @@ public class AnimalAdaptor extends RecyclerView.Adapter<AnimalAdaptor.AnimalView
         holder.nameTextView.setText(animal.getName());
         holder.imageView.setImageResource(animal.getImageResId());
 
+
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, AnimalDetailActivity.class);
-            intent.putExtra("animal_name", animal.getName());
-            intent.putExtra("animal_description", animal.getDescription());
-            intent.putExtra("animal_image", animal.getImageResId());
-            context.startActivity(intent);
+            if (position == animalList.size() - 1) {
+                new AlertDialog.Builder(context)
+                        .setTitle("Warning")
+                        .setMessage("This animal is very scary. Do you want to proceed?")
+                        .setPositiveButton("Yes", (dialog, which) -> {
+                            openAnimalDetails(animal);
+                        })
+                        .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                        .show();
+            } else {
+                openAnimalDetails(animal);
+            }
         });
     }
 
